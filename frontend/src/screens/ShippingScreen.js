@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button} from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
@@ -9,7 +9,9 @@ import {saveShippingAddress} from '../actions/cartActions';
 
 const ShippingScreen = ({history}) => {
 
-    
+    const userLogin = useSelector(state => state.userLogin);
+    const {userInfo} = userLogin;
+
     const dispatch = useDispatch();
     
     const cart = useSelector(state => state.cart);
@@ -19,6 +21,13 @@ const ShippingScreen = ({history}) => {
     const [city, setCity] = useState(shippingAddress.city);
     const [postalCode, setPostalCode] = useState(shippingAddress.postalCode); 
     const [country, setCountry] = useState(shippingAddress.country);
+
+
+    useEffect(()=> {
+        if(!userInfo){
+            history.push('/login');
+        }
+    })
     
     const submitHandler = (e) => {
         e.preventDefault();
@@ -33,7 +42,9 @@ const ShippingScreen = ({history}) => {
     }
 
 
-    return (
+
+
+    return userInfo && (
         <FormContainer>
             <CheckoutSteps step1 step2/>
             <h1>Shipping</h1>

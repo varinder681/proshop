@@ -54,12 +54,16 @@ const PlaceOrderScreen = ({history}) => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
-              <p>
-                <strong>Address:</strong>
-                {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
-                {cart.shippingAddress.postalCode},{" "}
-                {cart.shippingAddress.country}
-              </p>
+              { cart.shippingAddress.address ? 
+                <p>
+                  <strong>Address:</strong>
+                  {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
+                  {cart.shippingAddress.postalCode},{" "}
+                  {cart.shippingAddress.country}
+                </p>
+                :
+                <Message>Please update <Link to='/shipping'>shipping address</Link></Message>
+              }
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -71,7 +75,7 @@ const PlaceOrderScreen = ({history}) => {
             <ListGroup.Item>
               <h2>Order Items</h2>
               {cart.cartItems.length === 0 ? (
-                <Message>Your cart is emtpy</Message>
+                <Message>Your cart is emtpy <Link to='/'>Go Back</Link></Message>
               ) : (
                 <ListGroup variant="flush">
                   {cart.cartItems.map((item, index) => (
@@ -98,57 +102,60 @@ const PlaceOrderScreen = ({history}) => {
                   ))}
                 </ListGroup>
               )}
-            </ListGroup.Item>
+            </ListGroup.Item>  
           </ListGroup>
         </Col>
-        <Col md={4}>
-          <Card>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <h2>Order Summary</h2>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Items</Col>
-                  <Col>${cart.itemsPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Shipping</Col>
-                  <Col>${cart.shippingPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Tax</Col>
-                  <Col>${cart.taxPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Total</Col>
-                  <Col>${cart.totalPrice}</Col>
-                </Row>
-              </ListGroup.Item>
 
-              <ListGroup.Item>
-                {error && <Message variant='danger'>{error}</Message>}
-              </ListGroup.Item>
+        { cart.cartItems.length > 0 &&
+          <Col md={4}>
+            <Card>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <h2>Order Summary</h2>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Items</Col>
+                    <Col>${cart.itemsPrice}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Shipping</Col>
+                    <Col>${cart.shippingPrice}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Tax</Col>
+                    <Col>${cart.taxPrice}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Total</Col>
+                    <Col>${cart.totalPrice}</Col>
+                  </Row>
+                </ListGroup.Item>
 
-              <ListGroup.Item>
-                <Button
-                  type="button"
-                  className="btn-block"
-                  disabled={cart.cartItems.length === 0}
-                  onClick={placeOrderHandler}
-                >
-                  Place Order
-                </Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
+                <ListGroup.Item>
+                  {error && <Message variant='danger'>{error}</Message>}
+                </ListGroup.Item>
+
+                <ListGroup.Item>
+                  <Button
+                    type="button"
+                    className="btn-block"
+                    disabled={cart.cartItems.length === 0 || !cart.shippingAddress.address}
+                    onClick={placeOrderHandler}
+                  >
+                    Place Order
+                  </Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
+          </Col>
+        }
       </Row>
     </>
   );

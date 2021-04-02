@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { listUsers,deleteUser } from "../actions/userActions";
+import {USER_DELETE_RESET} from '../constants/userConstants'
 
 const UserListScreen = ({history}) => {
 
@@ -34,6 +35,7 @@ const UserListScreen = ({history}) => {
         setAlert(false);
         dispatch(deleteUser(id ));
         setTimeout(()=>{
+          dispatch({type : USER_DELETE_RESET})
             setAlert(true);
         },5000)
       }
