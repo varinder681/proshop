@@ -16,8 +16,8 @@ const RegisterScreen = ({ location, history }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
 
-  const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error, userInfo } = userRegister;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
@@ -87,7 +87,7 @@ const RegisterScreen = ({ location, history }) => {
       <Row className="py-3">
         <Col>
           Have an Account ?{" "}
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/login"}>
+          <Link to="/login">
             Login
           </Link>
         </Col>
