@@ -144,7 +144,7 @@ const successPaymentHanlder = (paymentResult) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} X Rs.{item.price} = Rs.
+                          {item.qty} X ₹{item.price} = ₹
                           {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
@@ -164,25 +164,25 @@ const successPaymentHanlder = (paymentResult) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>Rs.{order.itemsPrice}</Col>
+                  <Col>₹{order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>Rs.{order.shippingPrice}</Col>
+                  <Col>₹{order.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>Rs.{order.taxPrice}</Col>
+                  <Col>₹{order.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>Rs.{order.totalPrice}</Col>
+                  <Col>₹{order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
               {!order.isPaid && (
